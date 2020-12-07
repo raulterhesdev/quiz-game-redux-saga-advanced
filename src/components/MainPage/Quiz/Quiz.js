@@ -27,7 +27,7 @@ const Quiz = ({ score, timeLeft }) => {
 			<p>Time Left: {timeLeft}</p>
 			<p>Score: {score}</p>
 			<p>Question : {index + 1} / 10</p>
-			<p>{question}</p>
+			<p dangerouslySetInnerHTML={{ __html: question }}></p>
 			<button onClick={() => answerQuestion('True')}>True</button>
 			<button onClick={() => answerQuestion('False')}>False</button>
 			<button onClick={quitGame}>Quit Game</button>

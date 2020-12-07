@@ -17,4 +17,19 @@ export {
 	answerQuestion,
 	finishGame,
 	nextQuestion,
+	timeLeft,
+	fetchScoreboardFail,
+	fetchScoreboardStart,
+	fetchScoreboardSuccess,
+	addScoreboard,
+	addScoreboardFail,
 } from './gameActions';
+
+export {
+	addReviewFail,
+	addReviewStart,
+	addReviewSuccess,
+	fetchReviewsFail,
+	fetchReviewsStart,
+	fetchReviewsSuccess,
+} from './reviewsActions';

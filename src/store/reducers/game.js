@@ -1,9 +1,9 @@
-import { actionChannel } from 'redux-saga/effects';
-import { nextQuestion } from '../actions';
 import {
+	ADD_SCOREBOARD,
 	ANSWER_QUESTION,
 	FETCH_QUIZ_FAIL,
 	FETCH_QUIZ_SUCCESS,
+	FETCH_SCOREBOARD_SUCCESS,
 	FINISH_GAME,
 	NEXT_QUESTION,
 	RESET_GAME,
@@ -18,6 +18,7 @@ const initialState = {
 	answers: [],
 	score: null,
 	currentQuestionIndex: null,
+	scoreboard: [],
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -80,6 +81,16 @@ export default (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				stage: 4,
+			};
+		case ADD_SCOREBOARD:
+			return {
+				...state,
+				scoreboard: [...state.scoreboard, payload],
+			};
+		case FETCH_SCOREBOARD_SUCCESS:
+			return {
+				...state,
+				scoreboard: payload,
 			};
 		default:
 			return state;

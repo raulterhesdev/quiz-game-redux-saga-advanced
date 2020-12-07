@@ -1,23 +1,35 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import QuizLoading from './QuizLoading/QuizLoading';
 import Quiz from './Quiz/Quiz';
 import GameOver from './GameOver/GameOver';
 import NameSelection from './NameSelection/NameSelection';
+import Reviews from './Reviews/Reviews';
+import { timeLeft as timeLeftAction } from '../../store/actions/index';
+import Scoreboard from './Scoreboard/Scoreboard';
 
 function MainPage() {
 	const [timeLeft, setTimeLeft] = useState(60);
 	const stage = useSelector((state) => state.game.stage);
 	const score = useSelector((state) => state.game.score);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
+		let interval;
 		if (stage === 3) {
-			const interval = setInterval(() => {
+			interval = setInterval(() => {
 				setTimeLeft((prev) => prev - 1);
 			}, 1000);
 		}
-	}, [stage]);
+		if (stage === 4) {
+			dispatch(timeLeftAction(timeLeft));
+		}
+		return () => {
+			clearInterval(interval);
+			setTimeLeft(60);
+		};
+	}, [stage, dispatch]);
 
 	let gameDisplay;
 
@@ -38,7 +50,13 @@ function MainPage() {
 			break;
 	}
 
-	return <>{gameDisplay}</>;
+	return (
+		<>
+			{gameDisplay}
+			<Reviews />
+			<Scoreboard />
+		</>
+	);
 }
 
 export default MainPage;
